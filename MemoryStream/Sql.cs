@@ -44,7 +44,7 @@ namespace MemoryStream
         /// <returns></returns>
         public static string SelectUploadLocal(string day)
         {
-            return $"select top 1 * from [JPSPV20].[dbo].[UpdateDcm] where CreaDate >GETDATE()-{day} and [UpdateStase]='1' order by [ImageId] desc";
+            return $"select top 10 * from [JPSPV20].[dbo].[UpdateDcm] where CreaDate >GETDATE()-{day} and [UpdateStase]='1' order by [ImageId] desc";
         }
         /// <summary>
         /// 更新本地数据

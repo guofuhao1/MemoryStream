@@ -51,7 +51,7 @@ namespace MemoryStream1
                     //过滤
                     Comparison(pacs);
                 }
-                BenDi = sqlData.Local(Sql.locale, Sql.SelectUploadLocal("1"));//查询本地待上传数据
+                BenDi = sqlData.Local(Sql.locale, Sql.SelectUploadLocal("7"));//查询本地待上传数据
 
 
                 for (int i = 0; i < BenDi.Rows.Count; i++)
