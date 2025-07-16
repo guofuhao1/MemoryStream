@@ -56,6 +56,15 @@ namespace MemoryStream
             return $"UPDATE [JPSPV20].[dbo].[UpdateDcm] SET [UpdateStase]=2  where [StyUid]='{stuid}'";
         }
         /// <summary>
+        /// 获取推送错误更新数据库
+        /// </summary>
+        /// <param name="stuid"></param>
+        /// <returns></returns>
+        public static string ErrorUpdateUploadLocal(string stuid)
+        {
+            return $"UPDATE [JPSPV20].[dbo].[UpdateDcm] SET [UpdateStase]=3  where [StyUid]='{stuid}'";
+        }
+        /// <summary>
         /// pacs链接字符串
         /// </summary>
         public static string pacsconfig = "User Id=exam;Password=exam;Data Source=172.18.200.100:1521/orcl";

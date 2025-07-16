@@ -75,7 +75,7 @@ namespace MemoryStream1
                                 FTPUILs.Add(fileUrl);
                             }
                             //下载文件到内存流，并推送到Aibox
-                            NewMethod(FTPUILs, "zl", "zlpacs");
+                            NewMethod(FTPUILs, "zl", "zlpacs", BenDi.Rows[i]["StyUid"].ToString());
                         }
                         sqlData.Local(Sql.locale, Sql.UpdateUploadLocal(BenDi.Rows[i]["StyUid"].ToString()));//更新本地数据
                     }
@@ -89,7 +89,7 @@ namespace MemoryStream1
             }   
         }
 
-        private static void NewMethod(List<string> FtpUrls, string FtpName, string FtpPwd)
+        private static void NewMethod(List<string> FtpUrls, string FtpName, string FtpPwd,string styuid)
         {
             //var client = new DicomClient();
             
@@ -116,6 +116,8 @@ namespace MemoryStream1
                 catch (Exception ex)
                 {
                     Console.Error.WriteLine($"处理 {url} 时发生错误: {ex.Message}");
+                    sqlData.Insert(Sql.locale, Sql.ErrorUpdateUploadLocal(styuid));
+                    break;
                 }
             }
 
