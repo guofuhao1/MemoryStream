@@ -117,25 +117,29 @@ namespace MemoryStream1
                 {
                     Console.Error.WriteLine($"处理 {url} 时发生错误: {ex.Message}");
                     sqlData.Insert(Sql.locale, Sql.ErrorUpdateUploadLocal(styuid));
-                    break;
                 }
-            }
+                finally
+                {
+                    try
+                    {
+                        // 发送请求  
+                       client.SendAsync().GetAwaiter().GetResult();
+                        //client.SendAsync("127.0.0.1", 5051, false, "JPAI", "JPAI");
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Error.WriteLine($"发送 DICOM 文件时发生错误：{ex.Message}");
+                        sqlData.Insert(Sql.locale, Sql.ErrorUpdateUploadLocal(styuid));
+                    }
+                    finally
+                    {
+                        //GC.Collect();        // 强制垃圾回收
+                    }
+                }
 
-            try
-            {
-                // 发送请求  
-                client.SendAsync().GetAwaiter().GetResult();
-                //client.SendAsync("127.0.0.1", 5051, false, "JPAI", "JPAI");
-                Console.WriteLine("推送完成。");
             }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine($"发送 DICOM 文件时发生错误：{ex.Message}");
-            }
-            finally 
-            {
-                GC.Collect();        // Replace the following line:  
-            }
+                     Console.WriteLine("推送完成。"+ styuid + "数量"+ FtpUrls.Count);
         }
 
 
